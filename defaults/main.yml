@@ -1,2 +1,10 @@
 ---
-# defaults file for vsftpd
+vsftpd_anonymous_enable: false
+vsftpd_local_enable: true
+vsftpd_virtual_users: true
+
+# vsftpd can only listen on ipv4 or ipv6
+# true for ipv6 and false for ipv4
+vsftpd_listen_ipv6: false
+vsftpd_listen_address: 127.0.0.1
+vsftpd_listen_address6: "::1"

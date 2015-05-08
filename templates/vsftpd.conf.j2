@@ -10,11 +10,22 @@
 # capabilities.
 #
 # Allow anonymous FTP? (Beware - allowed by default if you comment this out).
-anonymous_enable=YES
+anonymous_enable={{ 'YES' if vsftpd_anonymous_enable else 'NO' }}
 #
 # Uncomment this to allow local users to log in.
 # When SELinux is enforcing check for SE bool ftp_home_dir
-local_enable=YES
+local_enable={{ 'YES' if vsftpd_local_enable else 'NO' }}
+{% if vsftpd_virtual_users %}
+#
+# Virtual users will use the same privileges as local users.
+# It will grant write access to virtual users. Virtual users will use the
+# same privileges as anonymous users, which tends to be more restrictive
+# (especially in terms of write access).
+virtual_use_local_privs=YES
+#
+# Activates virtual users
+guest_enable=YES
+{% endif %}
 #
 # Uncomment this to enable any form of FTP write command.
 write_enable=YES
@@ -112,7 +123,7 @@ xferlog_std_format=YES
 # When "listen" directive is enabled, vsftpd runs in standalone mode and
 # listens on IPv4 sockets. This directive cannot be used in conjunction
 # with the listen_ipv6 directive.
-listen=NO
+listen={{ 'NO' if vsftpd_listen_ipv6 else 'YES' }}
 #
 # This directive enables listening on IPv6 sockets. By default, listening
 # on the IPv6 "any" address (::) will accept connections from both IPv6
@@ -121,7 +132,13 @@ listen=NO
 # addresses) then you must run two copies of vsftpd with two configuration
 # files.
 # Make sure, that one of the listen options is commented !!
-listen_ipv6=YES
+listen_ipv6={{ 'YES' if vsftpd_listen_ipv6 else 'NO' }}
+
+{% if vsftpd_listen_ipv6 and vsftpd_listen_address6 %}
+listen_address6={{ vsftpd_listen_address6 }}
+{% elif vsftpd_listen_address %}
+listen_address={{ vsftpd_listen_address }}
+{% endif %}
 
 pam_service_name=vsftpd
 userlist_enable=YES
