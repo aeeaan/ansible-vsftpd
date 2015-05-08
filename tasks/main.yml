@@ -1,2 +1,25 @@
 ---
-# tasks file for vsftpd
+- name: install vsftpd
+  yum: name=vsftpd state=installed
+  tags:
+    - vsftpd
+    - packages
+
+- name: configure vsftpd
+  template: src="{{ item }}.j2" dest="/etc/vsftpd/{{ item }}" owner=root group=root mode=0600
+  with_items:
+    - ftpusers
+    - user_list
+    - vsftpd.conf
+  notify: restart vsftpd
+  tags:
+    - vsftpd
+    - configuration
+
+- name: ensure vsftp service is enabled
+  service: name=vsftpd enabled=yes
+  notify: restart vsftpd
+  tags:
+    - vsftpd
+    - configuration
+    - services
