@@ -16,6 +16,36 @@
     - vsftpd
     - configuration
 
+- name: configure pam for virtual users
+  template: src=vsftpd.virtual.j2 dest=/etc/pam.d/vsftpd.virtual
+  when: vsftpd_virtual_users
+  tags:
+    - vsftpd
+    - configuration
+
+- name: make sure virtual root exists
+  file: path={{ vsftpd_virtual_root }} state=directory
+  when: vsftpd_virtual_users and vsftpd_virtual_root
+  tags:
+    - vsftpd
+    - configuration
+
+- name: add virtual logins
+  template: src=virtual_logins.j2 dest="{{ vsftpd_virtual_user_db }}" owner=root group=root mode=0600
+  when: vsftpd_virtual_users and vsftpd_virtual_logins is defined and vsftpd_virtual_logins
+  no_log: true
+  register: vsftpd_new_logins
+  tags:
+    - vsftpd
+    - configuration
+
+- name: create virtual login db
+  command: db_load -T -t hash -f {{ vsftpd_virtual_user_db }} {{ vsftpd_virtual_user_db }}.db
+  when: vsftpd_new_logins|changed
+  tags:
+    - vsftpd
+    - configuration
+
 - name: ensure vsftp service is enabled and running
   service: name=vsftpd enabled=yes state=started
   tags:

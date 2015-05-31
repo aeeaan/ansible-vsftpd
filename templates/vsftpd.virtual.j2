@@ -1,0 +1,5 @@
+# {{ ansible_managed }}
+#%PAM-1.0
+auth       required     pam_userdb.so db={{ vsftpd_virtual_user_db }}
+account    required     pam_userdb.so db={{ vsftpd_virtual_user_db }}
+session    required     pam_loginuid.so

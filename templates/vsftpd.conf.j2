@@ -144,6 +144,10 @@ pam_service_name={{ 'vsftpd.virtual' if vsftpd_virtual_users else 'vsftpd' }}
 userlist_enable=YES
 tcp_wrappers=YES
 
+{% if vsftpd_virtual_users and vsftpd_virtual_root and vsftpd_local_root %}
+local_root={{ vsftpd_local_root }}
+{% endif %}
+
 {% if vsftpd_pasv_enable %}
 pasv_enable=YES
 pasv_min_port={{ vsftpd_pasv_min_port }}

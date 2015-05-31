@@ -2,6 +2,9 @@
 vsftpd_anonymous_enable: false
 vsftpd_local_enable: true
 vsftpd_virtual_users: true
+vsftpd_virtual_user_db: /etc/vsftpd/vsftpd_login
+vsftpd_virtual_root: ''
+vsftpd_local_root: "{{ vsftpd_virtual_root }}/$USER"
 
 # vsftpd can only listen on ipv4 or ipv6
 # true for ipv6 and false for ipv4
