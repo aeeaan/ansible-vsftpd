@@ -1,3 +1,4 @@
 {% for item in vsftpd_virtual_logins %}
-{{ item.user }}:{{ item.password }}
+{{ item.user }}
+{{ item.password }}
 {% endfor %}
