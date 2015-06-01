@@ -1,12 +1,38 @@
 correct.horse.vsftpd
 =========
 
-This role is for a very basic install of vsftpd. The primary focus of this role is running an ftp server on localhost for upgrading a wordpress install. For increased security, wordpress shouldn't have write access to anything other than upload and cache directories. The localhost ftp site allows wordpress and its plugins to still be upgraded via the admin site.
+This role is for a very basic install of vsftpd. 
 
 Role Variables
 --------------
-
-TODO
+| Variable				| Default				| Notes					|
+| :---					| :---					| :---					|
+| vsftpd_anonymous_enable		| false					|					|
+| vsftpd_local_enable			| true					|					|
+| vsftpd_virtual_users			| true					|					|
+| vsftpd_virtual_user_db		| /etc/vsftpd/vsftpd_login		|					|
+| vsftpd_virtual_root			| /var/ftp				|					|
+| vsftpd_user_sub_token			| $USER					|					|
+| vsftpd_listen_ipv6			| false					|					|
+| vsftpd_listen_address			| 127.0.0.1				|					|
+| vsftpd_listen_address6		| "::1"					|					|
+| vsftpd_pasv_enable			| true					|					|
+| vsftpd_pasv_min_port			| 1024					|					|
+| vsftpd_pasv_max_port			| 1048					|					|
+| vsftpd_pasv_address			| ''					|					|
+| vsftpd_ssl_enable			| false					|					|
+| vsftpd_rsa_cert_file			| ''					|					|
+| vsftpd_rsa_private_key_file		| ''					|					|
+| vsftpd_allow_anon_ssl			| true					|					|
+| vsftpd_force_local_data_ssl		| true					|					|
+| vsftpd_force_local_logins_ssl		| true					|					|
+| vsftpd_ssl_tlsv1			| true					|					|
+| vsftpd_ssl_sslv2			| false					|					|
+| vsftpd_ssl_sslv3			| false					|					|
+| vsftpd_ssl_request_cert		| false					|					|
+| vsftpd_validate_cert			| false					|					|
+| vsftpd_require_ssl_reuse		| false					|					|
+| vsftpd_ssl_ciphers			| HIGH					|					|
 
 Dependencies
 ------------
@@ -18,7 +44,7 @@ Example Playbook
 
     - hosts: servers
       roles:
-         - { role: correct.horse.vsftpd }
+         - { role: correcthorse.vsftpd }
 
 License
 -------
