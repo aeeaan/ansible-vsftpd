@@ -1,6 +1,6 @@
 ---
 - name: install vsftpd
-  yum: name=vsftpd state=installed
+  yum: name=vsftpd state=present
   tags:
     - vsftpd
     - packages
