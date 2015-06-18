@@ -1,4 +1,4 @@
-correct.horse.vsftpd
+correcthorse.vsftpd
 =========
 
 This role is for a very basic install of vsftpd. 
@@ -37,7 +37,7 @@ Role Variables
 Dependencies
 ------------
 
-TODO
+- correcthorse.common
 
 Example Playbook
 ----------------
