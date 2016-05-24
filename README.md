@@ -13,6 +13,7 @@ Role Variables
 | vsftpd_virtual_user_db		| /etc/vsftpd/vsftpd_login		|					|
 | vsftpd_virtual_root			| /var/ftp				|					|
 | vsftpd_user_sub_token			| $USER					|					|
+| vsftpd_chroot_local_user		| true					|					|
 | vsftpd_listen_ipv6			| false					|					|
 | vsftpd_listen_address			| 127.0.0.1				|					|
 | vsftpd_listen_address6		| "::1"					|					|
