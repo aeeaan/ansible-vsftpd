@@ -24,7 +24,7 @@
     - configuration
 
 - name: make sure virtual root exists
-  file: path={{ vsftpd_virtual_root }} state=directory
+  file: path={{ vsftpd_virtual_root }} state=directory owner="{{ vsftpd_virtual_root_owner }}" group="{{ vsftpd_virtual_root_group }}"
   when: vsftpd_virtual_users and vsftpd_virtual_root
   tags:
     - vsftpd
