@@ -162,7 +162,7 @@ pasv_address={{ vsftpd_pasv_address }}
 {% endif %}
 {% endif %}
 
-{% if vsftpd_ssl_enable and vsftpd_sa_cert_file %}
+{% if vsftpd_ssl_enable and vsftpd_rsa_cert_file %}
 ssl_enable=YES
  
 # Allow anonymous users to use secured SSL connections
@@ -180,8 +180,12 @@ ssl_sslv2={{ 'YES' if vsftpd_ssl_sslv2 else 'NO' }}
 ssl_sslv3={{ 'YES' if vsftpd_ssl_sslv3 else 'NO' }}
  
 # Specifies the location of the RSA certificate to use for SSL encrypted connections
-rsa_cert_file=/etc/vsftpd/vsftpd.pem
-rsa_private_key_file=/etc/vsftpd/vsftpd.pem
+rsa_cert_file={{ vsftpd_rsa_cert_file }}
+{% if vsftpd_rsa_private_key_file %}
+rsa_private_key_file={{ vsftpd_rsa_private_key_file }}
+{% else %}
+rsa_private_key_file={{ vsftpd_rsa_cert_file }}
+{% endif %}
 
 ssl_request_cert={{ 'YES' if vsftpd_ssl_request_cert else 'NO' }}
 validate_cert={{ 'YES' if vsftpd_validate_cert else 'NO' }}
