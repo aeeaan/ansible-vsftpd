@@ -34,7 +34,7 @@
   template: src=virtual_logins.j2 dest="{{ vsftpd_virtual_user_db }}" owner=root group=root mode=0600
   when: vsftpd_virtual_users and vsftpd_virtual_logins is defined and vsftpd_virtual_logins
   no_log: true
-  register: vsftpd_new_logins|bool
+  register: vsftpd_new_logins
   tags:
     - vsftpd
     - configuration
